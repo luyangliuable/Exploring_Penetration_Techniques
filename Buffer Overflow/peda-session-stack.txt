@@ -1,0 +1,3 @@
+break /media/sf_shared_seed/FIT3173/Buffer Overflow/stack.c:17
+break /media/sf_shared_seed/FIT3173/Buffer Overflow/stack.c:19
+
