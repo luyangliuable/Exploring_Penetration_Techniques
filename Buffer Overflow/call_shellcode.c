@@ -41,6 +41,11 @@ int main(int argc, char **argv) {
   /* char buf[sizeof(shell)]; */
   /* strcpy(buf, shell); */
 
+  unsigned char buff[517];
+
+  FILE *badfile = fopen("badfile", "r");
+  fread(buff, sizeof(char), 517, badfile);
+
   /* memset(&buf, 0x90, sizeof(shell)); */
   ((void (*)())shell)();
 }
