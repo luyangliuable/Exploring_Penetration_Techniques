@@ -4,3 +4,4 @@ shellcode
 reverse_shell
 a.out
 *.out
+.gdb_history

